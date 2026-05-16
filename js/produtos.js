@@ -133,6 +133,33 @@ const produtos = [
     preco: 169.90,
     descricao: "O icônico Tennessee Whiskey.",
     ingredientes: "Destilado alcoólico de milho, centeio e malte de cevada, e água."
+  },
+  {
+    id: 16,
+    nome: "Caixa Antarctica SubZero - 12 un.",
+    categoria: "Cerveja",
+    imagem: "fotos/Caixa Antarctica SubZero - 12 un..png",
+    preco: 45.00,
+    descricao: "Cerveja refrescante duplamente filtrada a frio.",
+    ingredientes: "Água, malte, cereais não maltados e lúpulo."
+  },
+  {
+    id: 17,
+    nome: "Caixa Skol - 15 un.",
+    categoria: "Cerveja",
+    imagem: "fotos/Caixa Skol - 15 un..png",
+    preco: 55.00,
+    descricao: "A cerveja que desce redondo para a sua festa.",
+    ingredientes: "Água, malte, cereais não maltados e lúpulo."
+  },
+  {
+    id: 18,
+    nome: "Saboor Energetico",
+    categoria: "Energético",
+    imagem: "fotos/Saboor Energetico.png",
+    preco: 8.50,
+    descricao: "Sabor incrível e muita energia.",
+    ingredientes: "0% alcool e muita diversão"
   }
 ];
 

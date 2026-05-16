@@ -35,11 +35,55 @@ function adicionarComboAoCarrinho(combo) {
   mostrarToast('Combo adicionado ao carrinho!');
 }
 
+let itemParaRemoverId = null;
+
 function removerDoCarrinho(id) {
-  carrinho = carrinho.filter(item => item.id !== id);
-  salvarCarrinho();
-  renderizarCarrinho();
-  mostrarToast('Item removido do carrinho!');
+  itemParaRemoverId = id;
+  let modal = document.getElementById('remove-confirm-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'remove-confirm-modal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <h2 style="color: #ff4c4c; border-bottom: none;">Remover Item</h2>
+        <p>Tem certeza que deseja remover este item do carrinho?</p>
+        <div class="modal-buttons" style="flex-direction: row; gap: 10px;">
+          <button id="btn-confirm-remove" class="btn-primary" style="background: #ff4c4c; flex: 1;">Remover</button>
+          <button id="btn-cancel-remove" class="btn-secondary" style="flex: 1; border-color: #888; color: #ccc;">Cancelar</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('btn-confirm-remove').addEventListener('click', () => {
+      if (itemParaRemoverId !== null) {
+        carrinho = carrinho.filter(item => item.id !== itemParaRemoverId);
+        salvarCarrinho();
+        if (window.location.pathname.includes('carrinho.html')) {
+          renderizarCarrinho();
+        }
+        mostrarToast('Item removido do carrinho!');
+      }
+      fecharModalRemocao();
+    });
+
+    document.getElementById('btn-cancel-remove').addEventListener('click', () => {
+      fecharModalRemocao();
+    });
+  }
+  
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModalRemocao() {
+  const modal = document.getElementById('remove-confirm-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+  document.body.style.overflow = 'auto';
+  itemParaRemoverId = null;
 }
 
 function aumentarQuantidade(id) {
