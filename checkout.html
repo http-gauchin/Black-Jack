@@ -58,7 +58,7 @@
             <div class="form-grid">
               <div class="form-group">
                 <label>Rua</label>
-                <input type="text" required>
+                <input type="text" id="endereco-rua" required>
               </div>
               <div class="form-group">
                 <label>Número</label>
@@ -66,11 +66,11 @@
               </div>
               <div class="form-group">
                 <label>Bairro</label>
-                <input type="text" required>
+                <input type="text" id="endereco-bairro" required>
               </div>
               <div class="form-group">
                 <label>Cidade</label>
-                <input type="text" required>
+                <input type="text" id="endereco-cidade" required value="Pimenta Bueno">
               </div>
               <div class="form-group full">
                 <label>Complemento</label>
@@ -80,6 +80,9 @@
                 <label>Referência</label>
                 <input type="text">
               </div>
+            </div>
+            <div id="delivery-info" style="margin-top: 20px; padding: 15px; background: rgba(212, 108, 0, 0.1); border-left: 4px solid var(--color-orange); border-radius: var(--border-radius); display: none;">
+              <strong style="color: var(--color-orange);">Estimativa de Entrega:</strong> <span id="delivery-time">Calculando...</span>
             </div>
           </section>
 
@@ -118,7 +121,7 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        <h2 class="logo">Black<span>Jack</span></h2>
+        <h2 class="logo">Black<span>Jack</span></h2><p style="color: #888; margin-top: 10px;">R. Fagundes Varela, 320 - Pioneiros, Pimenta Bueno - RO, 78984-000</p>
       </div>
       <div class="footer-bottom">
         &copy; 2026 Black Jack. Todos os direitos reservados.

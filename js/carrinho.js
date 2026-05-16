@@ -17,6 +17,15 @@ function adicionarAoCarrinho(produto, quantidade = 1) {
   mostrarToast(`${produto.nome} adicionado ao carrinho!`);
 }
 
+function adicionarAoCarrinhoPorId(id) {
+  if (window.produtos) {
+    const produto = window.produtos.find(p => p.id === id);
+    if (produto) {
+      adicionarAoCarrinho(produto, 1);
+    }
+  }
+}
+
 function adicionarComboAoCarrinho(combo) {
   // Combo is considered as a single unit or an object of 3 products.
   // We'll store it as a special product.
@@ -283,6 +292,7 @@ function atualizarCarrinhoFlutuante() {
 }
 
 window.adicionarAoCarrinho = adicionarAoCarrinho;
+window.adicionarAoCarrinhoPorId = adicionarAoCarrinhoPorId;
 window.adicionarComboAoCarrinho = adicionarComboAoCarrinho;
 window.removerDoCarrinho = removerDoCarrinho;
 window.aumentarQuantidade = aumentarQuantidade;

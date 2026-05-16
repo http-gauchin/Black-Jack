@@ -211,6 +211,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (checkoutForm) {
+    const inputRua = document.getElementById('endereco-rua');
+    const inputBairro = document.getElementById('endereco-bairro');
+    const inputCidade = document.getElementById('endereco-cidade');
+    const deliveryInfo = document.getElementById('delivery-info');
+    const deliveryTimeSpan = document.getElementById('delivery-time');
+    
+    let debounceTimer;
+
+    const calcularEntrega = async () => {
+      const rua = inputRua?.value.trim();
+      const bairro = inputBairro?.value.trim();
+      const cidade = inputCidade?.value.trim() || 'Pimenta Bueno';
+      
+      if (rua && bairro && rua.length > 3 && bairro.length > 3) {
+        deliveryInfo.style.display = 'block';
+        deliveryTimeSpan.textContent = 'Calculando...';
+        
+        try {
+          // Store Coordinates: R. Fagundes Varela, 320 - Pioneiros, Pimenta Bueno - RO
+          const storeLat = -11.6740;
+          const storeLon = -61.1900;
+          
+          const query = encodeURIComponent(`${rua}, ${bairro}, ${cidade}, RO, Brazil`);
+          const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`, {
+            headers: { 'Accept-Language': 'pt-BR' }
+          });
+          const geoData = await geoRes.json();
+          
+          if (geoData && geoData.length > 0) {
+            const customerLat = parseFloat(geoData[0].lat);
+            const customerLon = parseFloat(geoData[0].lon);
+            
+            const routeRes = await fetch(`https://router.project-osrm.org/route/v1/driving/${storeLon},${storeLat};${customerLon},${customerLat}?overview=false`);
+            const routeData = await routeRes.json();
+            
+            if (routeData.routes && routeData.routes.length > 0) {
+              const durationSeconds = routeData.routes[0].duration;
+              const durationMinutes = Math.ceil(durationSeconds / 60) + 15; // 15 mins for prep
+              deliveryTimeSpan.textContent = `Aproximadamente ${durationMinutes} a ${durationMinutes + 10} minutos`;
+              return;
+            }
+          }
+        } catch (e) {
+          console.error('Erro ao calcular rota real:', e);
+        }
+        
+        // Fallback determinístico caso a API falhe ou endereço não seja encontrado
+        const hash = (rua + bairro).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        const baseTime = 15 + (hash % 25); // Entre 15 e 40 minutos base
+        deliveryTimeSpan.textContent = `Aproximadamente ${baseTime} a ${baseTime + 10} minutos`;
+      } else {
+        deliveryInfo.style.display = 'none';
+      }
+    };
+
+    [inputRua, inputBairro, inputCidade].forEach(input => {
+      if (input) {
+        input.addEventListener('input', () => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(calcularEntrega, 1000);
+        });
+      }
+    });
+
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const agree18 = document.getElementById('agree-18').checked;
@@ -249,7 +313,7 @@ function generateProductCard(produto) {
         <p class="product-desc">${produto.descricao}</p>
         <div class="product-actions">
           <a href="produto.html?id=${produto.id}" class="btn-secondary" style="flex:1">Ver Detalhes</a>
-          <button class="btn-primary" onclick='window.adicionarAoCarrinho(${JSON.stringify(produto)})'>Adicionar</button>
+          <button class="btn-primary" onclick="window.adicionarAoCarrinhoPorId(${produto.id})">Adicionar</button>
         </div>
       </div>
     </div>
