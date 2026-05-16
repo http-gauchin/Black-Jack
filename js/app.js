@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <div class="quantity-selector">
             <button class="quantity-btn" id="btn-dec">-</button>
-            <input type="text" id="prod-quantity" class="quantity-input" value="1" readonly>
+            <input type="number" min="1" id="prod-quantity" class="quantity-input" value="1">
             <button class="quantity-btn" id="btn-inc">+</button>
           </div>
 
@@ -121,12 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       let qty = 1;
+      const inputQty = document.getElementById('prod-quantity');
+      
+      inputQty.addEventListener('change', (e) => {
+        const val = parseInt(e.target.value, 10);
+        if (val >= 1) {
+          qty = val;
+        } else {
+          qty = 1;
+          inputQty.value = 1;
+        }
+      });
+      
       document.getElementById('btn-inc').addEventListener('click', () => {
         qty++;
-        document.getElementById('prod-quantity').value = qty;
+        inputQty.value = qty;
       });
       document.getElementById('btn-dec').addEventListener('click', () => {
-        if(qty > 1) { qty--; document.getElementById('prod-quantity').value = qty; }
+        if(qty > 1) { qty--; inputQty.value = qty; }
       });
       document.getElementById('btn-add-cart').addEventListener('click', () => {
         window.adicionarAoCarrinho(produto, qty);

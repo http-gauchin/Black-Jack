@@ -3,6 +3,7 @@ let carrinho = JSON.parse(localStorage.getItem('blackjack_cart')) || [];
 function salvarCarrinho() {
   localStorage.setItem('blackjack_cart', JSON.stringify(carrinho));
   atualizarBadgeCarrinho();
+  atualizarCarrinhoFlutuante();
 }
 
 function adicionarAoCarrinho(produto, quantidade = 1) {
@@ -13,7 +14,7 @@ function adicionarAoCarrinho(produto, quantidade = 1) {
     carrinho.push({ ...produto, quantidade });
   }
   salvarCarrinho();
-  alert(`${produto.nome} adicionado ao carrinho!`);
+  mostrarToast(`${produto.nome} adicionado ao carrinho!`);
 }
 
 function adicionarComboAoCarrinho(combo) {
@@ -31,13 +32,14 @@ function adicionarComboAoCarrinho(combo) {
   };
   carrinho.push(comboProduto);
   salvarCarrinho();
-  alert('Combo adicionado ao carrinho!');
+  mostrarToast('Combo adicionado ao carrinho!');
 }
 
 function removerDoCarrinho(id) {
   carrinho = carrinho.filter(item => item.id !== id);
   salvarCarrinho();
   renderizarCarrinho();
+  mostrarToast('Item removido do carrinho!');
 }
 
 function aumentarQuantidade(id) {
@@ -118,7 +120,7 @@ function renderizarCarrinho() {
         <div class="cart-item-actions">
           <div class="quantity-selector" style="margin-bottom:0;">
             <button class="quantity-btn" onclick="diminuirQuantidade(${typeof item.id === 'string' ? `'${item.id}'` : item.id})">-</button>
-            <input type="text" class="quantity-input" value="${item.quantidade}" readonly>
+            <input type="number" min="1" class="quantity-input" value="${item.quantidade}" onchange="atualizarQuantidadeDireta(${typeof item.id === 'string' ? `'${item.id}'` : item.id}, this.value)">
             <button class="quantity-btn" onclick="aumentarQuantidade(${typeof item.id === 'string' ? `'${item.id}'` : item.id})">+</button>
           </div>
           <button class="remove-btn" onclick="removerDoCarrinho(${typeof item.id === 'string' ? `'${item.id}'` : item.id})">Remover</button>
@@ -166,13 +168,82 @@ function renderizarCarrinho() {
 }
 
 // Initial badge update
-document.addEventListener('DOMContentLoaded', atualizarBadgeCarrinho);
+document.addEventListener('DOMContentLoaded', () => {
+  atualizarBadgeCarrinho();
+  atualizarCarrinhoFlutuante();
+});
+
+function atualizarQuantidadeDireta(id, novaQtd) {
+  const item = carrinho.find(item => item.id === id);
+  const qtd = parseInt(novaQtd, 10);
+  if (item) {
+    if (qtd >= 1) {
+      item.quantidade = qtd;
+    } else {
+      item.quantidade = 1;
+    }
+    salvarCarrinho();
+    if (window.location.pathname.includes('carrinho.html')) {
+      renderizarCarrinho();
+    }
+  }
+}
+
+function mostrarToast(mensagem) {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = mensagem;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function atualizarCarrinhoFlutuante() {
+  if (window.location.pathname.includes('carrinho.html') || window.location.pathname.includes('checkout.html') || window.location.pathname.includes('confirmacao.html')) {
+    const floatCart = document.getElementById('floating-cart');
+    if (floatCart) floatCart.style.display = 'none';
+    return;
+  }
+  
+  const qtdTotal = obterQuantidadeTotalItens();
+  const subtotal = calcularSubtotal();
+  let floatCart = document.getElementById('floating-cart');
+  if (qtdTotal === 0) {
+    if (floatCart) floatCart.style.display = 'none';
+    return;
+  }
+  if (!floatCart) {
+    floatCart = document.createElement('a');
+    floatCart.id = 'floating-cart';
+    floatCart.className = 'floating-cart';
+    floatCart.href = 'carrinho.html';
+    document.body.appendChild(floatCart);
+  }
+  floatCart.style.display = 'flex';
+  floatCart.innerHTML = `
+    <div class="icon">🛒</div>
+    <div class="details">
+      <span class="count">${qtdTotal} item${qtdTotal > 1 ? 's' : ''}</span>
+      <span class="label">${formatarMoeda(subtotal)}</span>
+    </div>
+  `;
+}
 
 window.adicionarAoCarrinho = adicionarAoCarrinho;
 window.adicionarComboAoCarrinho = adicionarComboAoCarrinho;
 window.removerDoCarrinho = removerDoCarrinho;
 window.aumentarQuantidade = aumentarQuantidade;
 window.diminuirQuantidade = diminuirQuantidade;
+window.atualizarQuantidadeDireta = atualizarQuantidadeDireta;
 window.calcularSubtotal = calcularSubtotal;
 window.calcularDescontoAtacado = calcularDescontoAtacado;
 window.calcularTotal = calcularTotal;
