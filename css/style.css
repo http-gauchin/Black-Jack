@@ -239,14 +239,7 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,1) 100%), 
-              url('../fotos/Gelo\\ Saborizado.png') center/cover;
   padding: 100px 20px;
-}
-
-/* Replace hero background image logic. It's better to use an overlay since we only have product images. Let's make a nice css gradient instead to keep it looking premium. */
-.hero {
-  background: radial-gradient(circle at center, #2a1500 0%, var(--color-black) 70%);
 }
 
 .hero-content {
