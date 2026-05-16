@@ -994,4 +994,26 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
   }
+  
+  /* Toast Responsive */
+  .toast {
+    font-size: 0.85rem;
+    padding: 10px 15px;
+  }
+  
+  /* Floating Cart Responsive */
+  .floating-cart {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    justify-content: center;
+  }
+  
+  /* Modal Responsive */
+  .modal-buttons {
+    flex-direction: column !important;
+  }
+  .modal-content {
+    padding: 25px 20px;
+  }
 }
