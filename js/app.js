@@ -191,6 +191,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- CHECKOUT FORM LOGIC ---
   const checkoutForm = document.getElementById('checkout-form');
+  const cpfCnpjInput = document.getElementById('cpf-cnpj');
+  
+  if (cpfCnpjInput) {
+    cpfCnpjInput.addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, "");
+      if (v.length <= 11) { // CPF
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      } else { // CNPJ
+        v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        v = v.replace(/(\d{4})(\d)/, "$1-$2");
+      }
+      e.target.value = v.substring(0, 18);
+    });
+  }
+
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
