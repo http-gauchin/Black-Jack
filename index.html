@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Jack | Delivery Premium de Bebidas</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Age Verification Modal -->
+  <div id="age-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <h2>Você tem 18 anos ou mais?</h2>
+      <p>Este site é destinado apenas para maiores de idade.</p>
+      <div class="modal-buttons">
+        <button id="btn-age-yes" class="btn-primary">Sim, tenho 18 anos ou mais</button>
+        <button id="btn-age-no" class="btn-secondary">Não tenho 18 anos</button>
+      </div>
+      <p id="age-blocked-msg" class="hidden" style="color: #ff4c4c; margin-top: 20px;"></p>
+    </div>
+  </div>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <!-- If logo.png exists we can use it, otherwise use text -->
+        Black<span>Jack</span>
+      </a>
+      
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" class="active">Início</a>
+        <a href="produtos.html">Bebidas</a>
+        <a href="combos.html">Combos</a>
+        <a href="carrinho.html" class="cart-icon">
+          🛒 Carrinho <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Bebidas para festas, encontros e momentos especiais.</h1>
+        <p>Monte seu pedido, escolha seus combos e receba com praticidade.</p>
+        <div class="hero-buttons">
+          <a href="produtos.html" class="btn-primary">Ver bebidas</a>
+          <a href="combos.html" class="btn-secondary">Ver combos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <h2 class="section-title">Nossas Categorias</h2>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px;">
+        <a href="produtos.html" class="btn-secondary">Vodka</a>
+        <a href="produtos.html" class="btn-secondary">Gin</a>
+        <a href="produtos.html" class="btn-secondary">Whisky</a>
+        <a href="produtos.html" class="btn-secondary">Energético</a>
+        <a href="produtos.html" class="btn-secondary">Gelo</a>
+        <a href="combos.html" class="btn-secondary">Combos Especiais</a>
+      </div>
+    </section>
+
+    <section class="container" style="padding-top: 0;">
+      <h2 class="section-title">Destaques</h2>
+      <div id="grid-destaques" class="products-grid">
+        <!-- Products injected by JS -->
+      </div>
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="produtos.html" class="btn-primary">Ver todas as bebidas</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <h2 class="logo">Black<span>Jack</span></h2>
+        <p style="color: #888; margin-top: 10px;">O melhor delivery premium de bebidas para a sua festa.</p>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Black Jack. Todos os direitos reservados. Beba com moderação.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/produtos.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

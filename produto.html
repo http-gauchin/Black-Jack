@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Produto | Black Jack</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">Black<span>Jack</span></a>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Início</a>
+        <a href="produtos.html" class="active">Bebidas</a>
+        <a href="combos.html">Combos</a>
+        <a href="carrinho.html" class="cart-icon">
+          🛒 Carrinho <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <div id="single-product-container" class="product-details">
+        <!-- Product details injected by JS based on URL ?id=X -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <h2 class="logo">Black<span>Jack</span></h2>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Black Jack. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/produtos.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

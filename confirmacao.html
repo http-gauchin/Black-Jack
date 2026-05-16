@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmação | Black Jack</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">Black<span>Jack</span></a>
+      <nav class="nav-links" id="nav-links" style="display: flex;">
+        <a href="index.html">Início</a>
+        <a href="produtos.html">Bebidas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <h1 style="margin-bottom: 10px; color: var(--color-orange);">Pedido realizado com sucesso!</h1>
+        <p style="color: #ccc;">Agradecemos pela preferência. Seu pedido já está sendo preparado e logo sairá para entrega.</p>
+        
+        <div class="order-details">
+          <p><strong>Número do pedido:</strong> #<span id="order-id"></span></p>
+          <hr style="border:0; border-top: 1px solid #333; margin: 15px 0;">
+          <p style="margin-bottom: 5px;"><strong>Status:</strong> Aguardando pagamento / Preparação</p>
+          <p style="margin-bottom: 5px;"><strong>Previsão de entrega:</strong> 30-45 minutos</p>
+        </div>
+
+        <a href="index.html" class="btn-primary" style="margin-top: 20px;">Voltar para o início</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Generate a random order number
+    document.getElementById('order-id').textContent = Math.floor(Math.random() * 900000) + 100000;
+  </script>
+
+</body>
+</html>
