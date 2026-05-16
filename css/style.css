@@ -352,15 +352,16 @@ section {
 }
 
 .product-name {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
   color: var(--color-white);
+  font-weight: 800;
 }
 
 .product-price {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--color-white);
+  font-size: 1.0rem;
+  font-weight: 500;
+  color: var(--color-orange);
   margin-bottom: 15px;
 }
 
@@ -459,12 +460,12 @@ section {
 
 .product-meta h1 {
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .product-meta .price {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--color-orange);
   margin-bottom: 20px;
 }
@@ -574,11 +575,13 @@ section {
 
 .cart-item-info h4 {
   margin-bottom: 5px;
+  font-size: 1.1rem;
 }
 
 .cart-item-price {
   color: var(--color-orange);
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .cart-item-actions {
